@@ -244,6 +244,50 @@
     .page { padding: 2.5rem 2rem 2rem; }
   }
 
+  .tote-btn-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 16px 0 14px;
+  }
+  .tote-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #5046E5 0%, #D4537E 100%);
+    color: #fff;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.18rem;
+    letter-spacing: 0.3px;
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 50px;
+    box-shadow: 0 6px 24px rgba(80,70,229,0.32), 0 2px 8px rgba(212,83,126,0.18);
+    transition: transform 0.15s, box-shadow 0.15s;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .tote-btn:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 10px 32px rgba(80,70,229,0.38), 0 4px 12px rgba(212,83,126,0.22);
+  }
+  .tote-btn:active {
+    transform: translateY(0) scale(0.98);
+  }
+  .tote-btn .btn-icon {
+    font-size: 1.3rem;
+    line-height: 1;
+  }
+  .tote-btn-sub {
+    font-family: 'Caveat', cursive;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.75);
+    text-align: center;
+    margin-top: 6px;
+    display: block;
+  }
+
+
   /* ── SMALL PHONES ── */
   @media (max-width: 360px) {
     .dots { gap: 5px; }
@@ -308,6 +352,15 @@
     <p>You guys are <em>lucky ones</em> ✨<br>
     Grab your tote bag at <strong>C1 Center</strong></p>
     <span class="waiting">......... waiting for you 🛍️</span>
+  </div>
+    <div class="tote-btn-wrap">
+    <div style="text-align:center;">
+      <a href="https://forms.gle/noPcaXXKxcNRaN8j8" target="_blank" class="tote-btn">
+        <span class="btn-icon">🛍️</span>
+        Reserve your Tote Bag Now .... 70 Left
+      </a>
+      <span class="tote-btn-sub">hostel drive &mdash; fill the form &amp; secure yours ✦</span>
+    </div>
   </div>
 
   <div class="track-outer" id="outer">
