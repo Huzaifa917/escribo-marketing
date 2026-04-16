@@ -19,7 +19,6 @@
     overflow-x: hidden;
   }
 
-  /* ── TILED DOODLE BG ── */
   .doodle-bg {
     position: fixed; inset: 0;
     pointer-events: none; z-index: 0;
@@ -28,7 +27,6 @@
     background-size: 120px 120px;
   }
 
-  /* ── EXTRA SCATTERED DOODLES ── */
   .doodle-scatter {
     position: fixed; inset: 0;
     pointer-events: none; z-index: 0;
@@ -36,7 +34,6 @@
   }
   .doodle-scatter svg { position: absolute; }
 
-  /* ── PAGE ── */
   .page {
     position: relative; z-index: 1;
     width: 100%; max-width: 430px;
@@ -44,7 +41,6 @@
     user-select: none;
   }
 
-  /* ── LOGO ── */
   .logo { text-align: center; margin-bottom: 0.8rem; }
   .logo img { width: 72px; height: 72px; object-fit: contain; display: block; margin: 0 auto 6px; filter: drop-shadow(2px 3px 0px #5046E5); }
   .logo-name {
@@ -69,7 +65,6 @@
     box-shadow: 3px 3px 0 #1a1040;
   }
 
-  /* ── HERO CARD ── */
   .hero-card {
     background: #fff;
     border-radius: 20px;
@@ -85,7 +80,6 @@
     content: '✦';
     position: absolute; top: -14px; left: 20px;
     font-size: 22px; color: #F5A623;
-    text-shadow: 0 0 0 #000;
   }
   .hero-card::after {
     content: '✦';
@@ -107,7 +101,6 @@
     margin-top: 4px;
   }
 
-  /* ── BUTTON ── */
   .tote-btn-wrap { display: flex; justify-content: center; margin: 1.2rem 0 0.6rem; }
   .tote-btn {
     display: inline-flex; align-items: center; gap: 10px;
@@ -130,19 +123,38 @@
     color: #7B6ECC; text-align: center; margin-top: 5px; display: block;
   }
 
-  /* ── VIDEO ── */
-  .video-wrap {
+  /* ── VIDEO CAROUSEL ── */
+  .video-carousel-wrap {
     position: relative;
     border-radius: 20px;
-    overflow: hidden;
-    background: #1a1040;
     border: 3px solid #1a1040;
     box-shadow: 6px 6px 0 #1a1040;
-    width: 100%; aspect-ratio: 9/16;
+    overflow: hidden;
+    width: 100%;
+    aspect-ratio: 9/16;
     max-height: 500px;
     transform: rotate(0.5deg);
+    background: #1a1040;
   }
-  .video-wrap video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .video-track {
+    display: flex;
+    width: 200%;
+    height: 100%;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .video-slide {
+    width: 50%;
+    height: 100%;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .video-slide video {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+
   .video-placeholder {
     position: absolute; inset: 0;
     display: flex; flex-direction: column;
@@ -159,11 +171,79 @@
   }
   .video-placeholder p { font-family: 'Fredoka One', cursive; font-size: 1.2rem; color: #fff; }
 
-  /* ── SCRIBBLE DIVIDER ── */
+  /* Swipe dots */
+  .carousel-dots {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.45);
+    border: 2px solid rgba(255,255,255,0.7);
+    transition: background 0.2s, transform 0.2s;
+    cursor: pointer;
+  }
+  .dot.active {
+    background: #fff;
+    transform: scale(1.3);
+  }
+
+  /* Swipe hint label */
+  .swipe-hint {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(61,50,196,0.85);
+    color: #fff;
+    font-family: 'Caveat', cursive;
+    font-size: 0.95rem;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    z-index: 10;
+    pointer-events: none;
+    animation: fadeHint 3s ease forwards;
+    animation-delay: 1s;
+    opacity: 0;
+  }
+  @keyframes fadeHint {
+    0%   { opacity: 0; transform: translateY(-4px); }
+    15%  { opacity: 1; transform: translateY(0); }
+    80%  { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  /* Arrow nav (desktop) */
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px; height: 36px;
+    background: rgba(61,50,196,0.8);
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 50%;
+    color: #fff;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.15s;
+    user-select: none;
+  }
+  .carousel-arrow:hover { background: #3D32C4; }
+  .carousel-arrow.prev { left: 10px; }
+  .carousel-arrow.next { right: 10px; }
+  .carousel-arrow.hidden { opacity: 0; pointer-events: none; }
+
   .scribble-divider { text-align: center; margin: 1.2rem 0 0.8rem; }
   .scribble-divider svg { overflow: visible; }
 
-  /* ── APP BUTTONS ── */
   .app-btns { display: flex; gap: 10px; justify-content: center; margin-top: 1.2rem; flex-wrap: wrap; }
   .app-btn {
     display: flex; align-items: center; gap: 10px;
@@ -183,7 +263,6 @@
   .app-btn-sub { font-size: 9px; opacity: 0.6; display: block; text-transform: uppercase; letter-spacing: 0.4px; }
   .app-btn-label { font-size: 13px; font-weight: 800; display: block; }
 
-  /* ── WASHI TAPE EFFECT ── */
   .washi {
     position: absolute; top: -10px; left: 50%; transform: translateX(-50%) rotate(-2deg);
     background: rgba(212, 83, 126, 0.35);
@@ -191,54 +270,43 @@
     z-index: 2;
   }
 
-  /* ── STICKER STARS ── */
   .sticker {
     display: inline-block;
     font-family: 'Fredoka One', cursive;
     font-size: 0.75rem;
     padding: 3px 10px; border-radius: 20px;
     border: 2px solid; margin: 0 4px;
-    transform: rotate(-2deg); display: inline-block;
   }
-  .sticker-pink { background: #FFE0EC; color: #A3214F; border-color: #D4537E; }
-  .sticker-yellow { background: #FFF3CC; color: #7A5000; border-color: #F5A623; transform: rotate(2deg); }
-  .sticker-purple { background: #EEEDFE; color: #3D32C4; border-color: #5046E5; transform: rotate(-3deg); }
+  .sticker-pink { background: #FFE0EC; color: #A3214F; border-color: #D4537E; transform: rotate(-2deg); display: inline-block; }
+  .sticker-yellow { background: #FFF3CC; color: #7A5000; border-color: #F5A623; transform: rotate(2deg); display: inline-block; }
+  .sticker-purple { background: #EEEDFE; color: #3D32C4; border-color: #5046E5; transform: rotate(-3deg); display: inline-block; }
 
   .stickers-row { text-align: center; margin: 0.7rem 0 0.3rem; }
 </style>
 </head>
 <body>
 
-<!-- TILED PATTERN BG -->
 <div class="doodle-bg"></div>
 
-<!-- SCATTERED HAND-DRAWN ACCENTS -->
 <div class="doodle-scatter">
-  <!-- wiggly star top-left -->
   <svg width="90" height="90" style="top:10px;left:-10px;opacity:0.18;transform:rotate(-10deg)" viewBox="0 0 90 90">
     <path d="M45 10 L50 38 L78 38 L55 55 L63 82 L45 66 L27 82 L35 55 L12 38 L40 38 Z" fill="#5046E5" stroke="#3D32C4" stroke-width="2"/>
   </svg>
-  <!-- wiggly star top-right -->
   <svg width="60" height="60" style="top:30px;right:10px;opacity:0.15;transform:rotate(15deg)" viewBox="0 0 60 60">
     <path d="M30 5 L34 24 L53 24 L38 36 L43 55 L30 44 L17 55 L22 36 L7 24 L26 24 Z" fill="#D4537E"/>
   </svg>
-  <!-- pencil squiggle left -->
   <svg width="50" height="120" style="top:200px;left:5px;opacity:0.12" viewBox="0 0 50 120">
     <path d="M25 10 Q35 30 25 50 Q15 70 25 90 Q35 110 25 120" fill="none" stroke="#F5A623" stroke-width="3" stroke-linecap="round"/>
   </svg>
-  <!-- pencil squiggle right -->
   <svg width="50" height="100" style="top:300px;right:5px;opacity:0.12" viewBox="0 0 50 100">
     <path d="M25 5 Q15 25 25 45 Q35 65 25 90" fill="none" stroke="#5046E5" stroke-width="3" stroke-linecap="round"/>
   </svg>
-  <!-- bottom left doodle circle -->
   <svg width="80" height="80" style="bottom:60px;left:0;opacity:0.1;transform:rotate(-5deg)" viewBox="0 0 80 80">
     <circle cx="40" cy="40" r="30" fill="none" stroke="#D4537E" stroke-width="3" stroke-dasharray="8 5"/>
   </svg>
-  <!-- bottom right star -->
   <svg width="70" height="70" style="bottom:40px;right:0;opacity:0.13;transform:rotate(10deg)" viewBox="0 0 70 70">
     <path d="M35 8 L39 28 L59 28 L43 40 L49 60 L35 49 L21 60 L27 40 L11 28 L31 28 Z" fill="#F5A623"/>
   </svg>
-  <!-- x marks -->
   <svg width="30" height="30" style="top:150px;right:30px;opacity:0.15" viewBox="0 0 30 30">
     <path d="M5 5 L25 25 M25 5 L5 25" stroke="#5046E5" stroke-width="3" stroke-linecap="round"/>
   </svg>
@@ -247,11 +315,10 @@
   </svg>
 </div>
 
-<!-- MAIN -->
 <div class="page">
 
   <div class="logo">
-    <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCACAAIADASIAAhEBAxEB/8QAHAABAAMBAQEBAQAAAAAAAAAAAAUGBwQDAgH/xAA4EAABAwMCBAQEBAUFAQAAAAABAgMEAAURBiExEkFRYRMiMnGBFEKRoRUjUmKxwdHh8CQzQ1P/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A3KiiigKKKKAooooChooooCiiig//2Q==" alt="Escribo logo">
+    <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/wAARCACAAIADASIAAhEBAxEB/8QAHAABAAMBAQEBAQAAAAAAAAAAAAUGBwQDAgH/xAA4EAABAwMCBAQEBAUFAQAAAAABAgMEAAURBiExEkFRYRMiMnGBFEKRoRUjUmKxwdHh8CQzQ1P/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A3KiiigKKKKAooooChooooCiiig//2Q==" alt="Escribo logo">
     <div class="logo-name">Escribo</div>
     <div class="logo-tagline">syncing your emotions in the bag ✦</div>
     <div class="logo-badge">Soft Launch · NUST · Girls Only</div>
@@ -265,7 +332,7 @@
 
   <div class="hero-card" style="position:relative;">
     <div class="washi"></div>
-        <p>We are coming to NUST <em>1-2 Pm , 16 April 2026</em> ✨<br>
+    <p>We are coming to NUST <em>1-2 Pm , 16 April 2026</em> ✨<br></p>
     <p>You guys are <em>lucky ones</em> ✨<br>
     Grab your tote bag at <strong>C1 ,C2 1-6 Pm or fill form</strong></p>
     <span class="waiting">......... waiting for you 🛍️</span>
@@ -281,7 +348,6 @@
     </div>
   </div>
 
-  <!-- SCRIBBLE DIVIDER -->
   <div class="scribble-divider">
     <svg width="260" height="24" viewBox="0 0 260 24">
       <path d="M10 12 Q30 4 50 12 Q70 20 90 12 Q110 4 130 12 Q150 20 170 12 Q190 4 210 12 Q230 20 250 12" fill="none" stroke="#D4537E" stroke-width="2.5" stroke-linecap="round"/>
@@ -291,15 +357,44 @@
     </svg>
   </div>
 
-  <div class="video-wrap">
-    <video id="myVideo" src="IMG_8842.MOV" controls playsinline></video>
-    <div class="video-placeholder" id="placeholder">
-      <div class="play-btn">&#9654;</div>
-      <p>Welcome O Chosen One</p>
+  <!-- VIDEO CAROUSEL -->
+  <div class="video-carousel-wrap" id="carousel">
+    <div class="video-track" id="track">
+
+      <!-- Slide 1 -->
+      <div class="video-slide">
+        <video id="vid1" src="IMG_8842.MOV" controls playsinline></video>
+        <div class="video-placeholder" id="ph1">
+          <div class="play-btn">&#9654;</div>
+          <p>Welcome O Chosen One</p>
+        </div>
+      </div>
+
+      <!-- Slide 2 — replace src with your second video filename -->
+      <div class="video-slide">
+        <video id="vid2" src="IMG_8818.MOV" controls playsinline></video>
+        <div class="video-placeholder" id="ph2">
+          <div class="play-btn">&#9654;</div>
+          <p>swipe ← for more ✨</p>
+        </div>
+      </div>
+
     </div>
+
+    <!-- Swipe hint -->
+    <div class="swipe-hint">swipe ← for more ✨</div>
+
+    <!-- Dots -->
+    <div class="carousel-dots">
+      <div class="dot active" onclick="goTo(0)"></div>
+      <div class="dot" onclick="goTo(1)"></div>
+    </div>
+
+    <!-- Arrow buttons (desktop) -->
+    <div class="carousel-arrow prev hidden" id="prevBtn" onclick="goTo(0)">&#8592;</div>
+    <div class="carousel-arrow next" id="nextBtn" onclick="goTo(1)">&#8594;</div>
   </div>
 
-  <!-- SCRIBBLE DIVIDER 2 -->
   <div class="scribble-divider" style="margin:1rem 0 0.8rem;">
     <svg width="200" height="20" viewBox="0 0 200 20">
       <path d="M0 10 L10 4 L20 10 L30 4 L40 10 L50 4 L60 10 L70 4 L80 10 L90 4 L100 10 L110 4 L120 10 L130 4 L140 10 L150 4 L160 10 L170 4 L180 10 L190 4 L200 10" fill="none" stroke="#5046E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
@@ -327,7 +422,6 @@
     </a>
   </div>
 
-  <!-- bottom doodle row -->
   <div style="text-align:center;margin-top:1.2rem;opacity:0.4;">
     <svg width="180" height="28" viewBox="0 0 180 28">
       <path d="M10 14 Q20 6 30 14 Q40 22 50 14" fill="none" stroke="#5046E5" stroke-width="2" stroke-linecap="round"/>
@@ -341,13 +435,67 @@
 </div>
 
 <script>
-  const vid = document.getElementById('myVideo');
-  const ph = document.getElementById('placeholder');
-  if (vid) {
-    vid.addEventListener('canplay', () => ph.style.display = 'none');
-    vid.addEventListener('error', () => ph.style.display = 'flex');
-    if (vid.readyState >= 3) ph.style.display = 'none';
+  /* ── Video placeholders ── */
+  [['vid1','ph1'],['vid2','ph2']].forEach(([vId, pId]) => {
+    const v = document.getElementById(vId);
+    const p = document.getElementById(pId);
+    if (!v || !p) return;
+    v.addEventListener('canplay', () => p.style.display = 'none');
+    v.addEventListener('error',   () => p.style.display = 'flex');
+    if (v.readyState >= 3) p.style.display = 'none';
+  });
+
+  /* ── Carousel logic ── */
+  let current = 0;
+  const track = document.getElementById('track');
+  const dots  = document.querySelectorAll('.dot');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  function goTo(idx) {
+    // Pause the leaving video
+    const leaving = document.getElementById('vid' + (current + 1));
+    if (leaving) leaving.pause();
+
+    current = idx;
+    track.style.transform = `translateX(-${current * 50}%)`;
+
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    prevBtn.classList.toggle('hidden', current === 0);
+    nextBtn.classList.toggle('hidden', current === 1);
   }
+
+  /* ── Touch / swipe ── */
+  let startX = 0, startY = 0, dragging = false;
+  const carousel = document.getElementById('carousel');
+
+  carousel.addEventListener('touchstart', e => {
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    dragging = true;
+  }, { passive: true });
+
+  carousel.addEventListener('touchend', e => {
+    if (!dragging) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    const dy = e.changedTouches[0].clientY - startY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+      if (dx < 0 && current < 1) goTo(1);
+      if (dx > 0 && current > 0) goTo(0);
+    }
+    dragging = false;
+  }, { passive: true });
+
+  /* ── Mouse drag (desktop) ── */
+  let mouseStartX = 0;
+  carousel.addEventListener('mousedown', e => { mouseStartX = e.clientX; });
+  carousel.addEventListener('mouseup',   e => {
+    const dx = e.clientX - mouseStartX;
+    if (Math.abs(dx) > 40) {
+      if (dx < 0 && current < 1) goTo(1);
+      if (dx > 0 && current > 0) goTo(0);
+    }
+  });
 </script>
 
 </body>
